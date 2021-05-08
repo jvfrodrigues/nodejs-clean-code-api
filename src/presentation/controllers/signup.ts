@@ -2,7 +2,7 @@
 // Deve primeiro comitar a classe de produção antes dos testes, para nao dar errado por arquivo nao existir
 
 export class SignUpController {
-  handle(httpRequest: any): any {
+  handle (httpRequest: any): any {
     return {
       statusCode: 400
     }
