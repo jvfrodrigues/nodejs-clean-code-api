@@ -4,6 +4,7 @@ import { InvalidParamError } from '../errors/invalid-param-error'
 import { badRequest } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller'
 import { EmailValidator } from '../protocols/email-validator'
+import { ServerError } from '../errors/server-error'
 // Vai colocando o minimo possivel para poder fazer rodar os testes, quantos mais teste forem feitos, mais será visivel a necessidade de adicionar novas condiçoes, verificaçoes, refatorando o codigo ate o funcionamento total
 // Deve primeiro comitar a classe de produção antes dos testes, para nao dar errado por arquivo nao existir
 
@@ -15,21 +16,30 @@ export class SignUpController implements Controller { // Uma classe implementa u
   }
 
   handle (httpRequest: HttpRequest): HttpResponse {
-    const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
+    try {
+      const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
 
-    for (const field of requiredFields) {
-      if (!httpRequest.body[field]) {
-        return badRequest(new MissingParamError(field))
+      for (const field of requiredFields) {
+        if (!httpRequest.body[field]) {
+          return badRequest(new MissingParamError(field))
+        }
       }
-    }
 
-    if (!this.emailValidator.isValid(httpRequest.body.email)) {
-      return badRequest(new InvalidParamError('email'))
-    }
+      const isValid = this.emailValidator.isValid(httpRequest.body.email)
 
-    return {
-      statusCode: 200,
-      body: { ok: 'Ok' }
+      if (!isValid) {
+        return badRequest(new InvalidParamError('email'))
+      }
+
+      return {
+        statusCode: 200,
+        body: { ok: 'Ok' }
+      }
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: new ServerError()
+      }
     }
   }
 }
