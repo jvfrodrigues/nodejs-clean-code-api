@@ -1,8 +1,7 @@
 // O projeto começa na criação do controller de SignUp para lidarmos com a chegada de informação das requicições, para depois irmos para lidar com os casos de uso da aplicação
-import { HttpRequest, HttpResponse, Controller, EmailValidator } from '../protocols'
-import { InvalidParamError, MissingParamError } from '../errors'
-import { badRequest, serverError } from '../helpers/http-helper'
-import { AddAccount } from '../../domain/usecases/add-account'
+import { AddAccount, Controller, EmailValidator, HttpRequest, HttpResponse } from './signup-protocols'
+import { InvalidParamError, MissingParamError } from '../../errors'
+import { badRequest, serverError } from '../../helpers/http-helper'
 // Vai colocando o minimo possivel para poder fazer rodar os testes, quantos mais teste forem feitos, mais será visivel a necessidade de adicionar novas condiçoes, verificaçoes, refatorando o codigo ate o funcionamento total
 // Deve primeiro comitar a classe de produção antes dos testes, para nao dar errado por arquivo nao existir
 
