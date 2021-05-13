@@ -14,7 +14,7 @@ export class SignUpController implements Controller { // Uma classe implementa u
     this.addAccount = addAccount
   }
 
-  handle (httpRequest: HttpRequest): HttpResponse {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
 
@@ -36,7 +36,7 @@ export class SignUpController implements Controller { // Uma classe implementa u
         return badRequest(new InvalidParamError('email'))
       }
 
-      const account = this.addAccount.add({ name, email, password })
+      const account = await this.addAccount.add({ name, email, password })
 
       return requestSuccess(account)
     } catch (error) {
