@@ -1,7 +1,7 @@
 // O projeto começa na criação do controller de SignUp para lidarmos com a chegada de informação das requicições, para depois irmos para lidar com os casos de uso da aplicação
 import { AddAccount, Controller, EmailValidator, HttpRequest, HttpResponse } from './signup-protocols'
 import { InvalidParamError, MissingParamError } from '../../errors'
-import { badRequest, serverError } from '../../helpers/http-helper'
+import { badRequest, requestSuccess, serverError } from '../../helpers/http-helper'
 // Vai colocando o minimo possivel para poder fazer rodar os testes, quantos mais teste forem feitos, mais será visivel a necessidade de adicionar novas condiçoes, verificaçoes, refatorando o codigo ate o funcionamento total
 // Deve primeiro comitar a classe de produção antes dos testes, para nao dar errado por arquivo nao existir
 
@@ -38,10 +38,7 @@ export class SignUpController implements Controller { // Uma classe implementa u
 
       const account = this.addAccount.add({ name, email, password })
 
-      return {
-        statusCode: 200,
-        body: account
-      }
+      return requestSuccess(account)
     } catch (error) {
       return serverError()
     }
