@@ -1,3 +1,4 @@
+// O projeto começa na criação do controller de SignUp para lidarmos com a chegada de informação das requicições, para depois irmos para lidar com os casos de uso da aplicação
 import { HttpRequest, HttpResponse, Controller, EmailValidator } from '../protocols'
 import { InvalidParamError, MissingParamError } from '../errors'
 import { badRequest, serverError } from '../helpers/http-helper'
