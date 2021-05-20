@@ -1,4 +1,4 @@
-import { EmailValidatorAdapter } from './email-validator'
+import { EmailValidatorAdapter } from './email-validator-adapter'
 import validator from 'validator'
 
 jest.mock('validator', () => ({ // NAO IMPORTA PARA A GENTE O FUNCIONAMENTO REAL DA LIB MAS QUEREMOS QUE QUANDO DE TRUE DE BOM E QUANDO DER FALSE DER RUIM SO ISSO POR ISSO PODEMOS MOCKAR A FUNCAO
